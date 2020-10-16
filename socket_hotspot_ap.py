@@ -10,6 +10,7 @@ file.write('interface wlan0\n')
 file.write('\tstatic ip_address=192.168.4.1/24')
 file.close()
 
+sp.call(['sudo','service','dhcpcd','restart'])
 sp.call(['sudo','mv','/etc/dnsmasq.conf','/etc/dnsmasq.conf.orig'])
 
 file = open('/etc/dnsmasq.conf','w')
@@ -40,6 +41,7 @@ file.close()
 
 sp.call(['sudo','systemctl','start','dnsmasq'])
 sp.call(['sudo','systemctl','start','hostapd'])
+sp.call(['sudo','systemctl','daemon-reload'])
 
 file =open('/etc/wpa_supplicant/wpa_supplicant.conf','w')
 file.close()
@@ -47,5 +49,4 @@ file.close()
 file =open('/etc/network/interfaces','w')
 file.close()
 
-sp.call(['sudo','systemctl','daemon-reload'])
-sp.call(['sudo','service','dhcpcd','restart'])
+

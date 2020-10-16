@@ -27,13 +27,12 @@ def listener():
 	serverSocket = socket.socket()
 	serverSocket.bind((SERVER_ADD,PORT))
 
-        print ('Server Started, Listening For Connections')
+    print ('Server Started, Listening For Connections')
 	serverSocket.listen(5)
 	serverOn = True
 	while serverOn:
 		clientSocket, clientAddr = serverSocket.accept()
 		print ('Connected To:' , clientAddr)
-		ledBlink.blink(0)
 		text = clientSocket.recv(8192)
 		key = (re.search('Sec-WebSocket-Key:\s+(.*?)[\n\r]+', text)
 				.groups()[0]
