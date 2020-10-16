@@ -27,7 +27,7 @@ def listener():
 	serverSocket = socket.socket()
 	serverSocket.bind((SERVER_ADD,PORT))
 
-    print ('Server Started, Listening For Connections')
+        print ('Server Started, Listening For Connections')
 	serverSocket.listen(5)
 	serverOn = True
 	while serverOn:
