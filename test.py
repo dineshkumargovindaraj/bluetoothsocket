@@ -7,9 +7,10 @@ sp.call(['sudo','systemctl','stop','hostapd'])
 
 file = open('/etc/dhcpcd.conf','w')
 file.write('interface wlan0\n')
-file.write('static ip_address=192.168.4.1/24\n')
+file.write('\tstatic ip_address=192.168.4.1/24\n')
 file.close()
 
+sp.call(['sudo','service','dhcpcd','restart'])
 sp.call(['sudo','mv','/etc/dnsmasq.conf','/etc/dnsmasq.conf.orig'])
 
 file = open('/etc/dnsmasq.conf','w')
@@ -36,6 +37,10 @@ file.close()
 file=open('/etc/default/hostapd','w')
 file.write("DAEMON_CONF='/etc/hostapd/hostapd.conf'")
 file.close()
+
+sp.call(['sudo','systemctl','start','dnsmasq'])
+sp.call(['sudo','systemctl','start','hostapd'])
+sp.call(['sudo','systemctl','daemon-reload'])
 
 file =open('/etc/wpa_supplicant/wpa_supplicant.conf','w')
 file.close()
